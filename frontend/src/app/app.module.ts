@@ -9,6 +9,7 @@ import { JobComponent } from './Pages/job/job.component';
 import { ProfileComponent } from './Pages/profile/profile.component';
 import { MyFeedComponent } from './Pages/my-feed/my-feed.component';
 import { SettingsComponent } from './Pages/settings/settings.component';
+import { HeaderComponent } from './Components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SettingsComponent } from './Pages/settings/settings.component';
     JobComponent,
     ProfileComponent,
     MyFeedComponent,
-    SettingsComponent
+    SettingsComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

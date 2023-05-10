@@ -16,18 +16,29 @@
             "outputPath": "dist/frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets", "src/images"],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/css/animate.css",
+              "src/css/bootstrap.min.css",
+              "src/css/line-awesome.css",
+              "src/css/line-awesome-font-awesome.min.css",
+              "src/css/font-awesome.min.css",
+              "src/lib/slick/slick.css",
+              "src/lib/slick/slick-theme.css",
+              "src/css/style.css",
+              "src/css/responsive.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/js/jquery.min.js",
+              "src/js/popper.js",
+              "src/js/bootstrap.min.js",
+              "src/js/jquery.mCustomScrollbar.js",
+              "src/lib/slick/slick.min.js",
+              "src/js/script.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -77,18 +88,10 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.css"],
             "scripts": []
           }
         }
