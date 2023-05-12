@@ -4,9 +4,9 @@ const { Schema, model } = mongoose;
 const CompanySchema = new Schema({
   nombre_compañia: String,
   pais: String,
+  seguidos: Number,
   seguidores: Number,
   informacion: String,
-  trabajos_guardados: Number,
   imagen_perfil: String,
   imagen_portada: String,
   contratista: Boolean,

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const connection = () => {
   mongoose.connect(
-    "mongodb+srv://dylanbenz2000:frrKqJONugvJH9lz@empleos.m8micfl.mongodb.net/"
+    "mongodb+srv://dylanbenz2000:Ad0RyGjryixSDfsD@empleadosproject.2jnfwiq.mongodb.net/"
   );
   mongoose.connection.on("error", (err) => {
     console.log("Error de conexion!!: " + err);

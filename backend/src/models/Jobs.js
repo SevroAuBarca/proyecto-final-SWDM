@@ -5,7 +5,7 @@ const JobSchema = new Schema({
   titulo: String,
   categoria: String,
   habilidades: String,
-  precio: Number,
+  salario: Number,
   tiempo: String,
   descripcion: String,
   compania: [
