@@ -7,8 +7,8 @@ const CompanySchema = new Schema({
   seguidos: Number,
   seguidores: Number,
   informacion: String,
-  imagen_perfil: String,
-  imagen_portada: String,
+  imagen_perfil: { url: String, public_id: String },
+  imagen_portada: { url: String, public_id: String },
   contratista: Boolean,
   contraseña: String,
   trabajos: [
