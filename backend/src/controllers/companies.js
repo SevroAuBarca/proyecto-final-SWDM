@@ -5,6 +5,8 @@ import {
   getCompanyService,
   postCompanyService,
 } from "../services/companies.js";
+import { deleteImage, uploadImage } from "../utils/cloudinary.js";
+
 
 const getAllCompanies = async (req, res) => {
   try {
@@ -76,6 +78,97 @@ const putCompany = async (req, res) => {
     res.status(400).json({ message: "Error del servidor", body: err });
   }
 };
+
+const putFollowers = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  try {
+    const company = await getCompanyService(id);
+    if (company) {
+      company.seguidores = company.seguidores + 1;
+      company.save();
+      res.status(200).json({ message: "usuario actualizado", body: user });
+    } else {
+      res.status(200).json({ message: "No hay datos" });
+    }
+  } catch (err) {
+    res.status(400).json({ message: "Error del servidor", body: err });
+  }
+};
+
+const putFollowing = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  try {
+    const company = await getCompanyService(id);
+    if (company) {
+      company.seguidores = company.seguidos + 1;
+      company.save();
+      res.status(200).json({ message: "usuario actualizado", body: user });
+    } else {
+      res.status(200).json({ message: "No hay datos" });
+    }
+  } catch (err) {
+    res.status(400).json({ message: "Error del servidor", body: err });
+  }
+};
+
+const putProfileImageCompany = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    const company = await getCompanyService(id);
+    if (company) {
+      if (company.imagen_perfil.public_id) {
+        await deleteImage(company.imagen_perfil.public_id);
+      }
+      if (req.file) {
+        const image = await uploadImage(req.file.path);
+        req.body.imagen_perfil = image;
+      }
+      company.imagen_perfil = req.body.imagen_perfil;
+
+      await company.save();
+      res.status(200).json({ message: "usuario actualizado", body: user });
+    } else {
+      res.status(200).json({ message: "No hay datos" });
+    }
+  } catch (err) {
+    res.status(400).json({ message: "Error del servidor", body: err });
+  }
+};
+
+const putCoverImageCompany = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    const comapany = await getCompanyService(id);
+    if (comapany) {
+      if (comapany.imagen_portada.public_id) {
+        await deleteImage(comapany.imagen_portada.public_id);
+      }
+      if (req.file) {
+        const image = await uploadImage(req.file.path);
+        req.body.imagen_portada = image;
+      }
+      comapany.imagen_portada = req.body.imagen_portada;
+
+      await comapany.save();
+      res.status(200).json({ message: "usuario actualizado", body: user });
+    } else {
+      res.status(200).json({ message: "No hay datos" });
+    }
+  } catch (err) {
+    res.status(400).json({ message: "Error del servidor", body: err });
+  }
+};
+
 const deleteCompany = async (req, res) => {
   const {
     params: { id },
@@ -89,4 +182,4 @@ const deleteCompany = async (req, res) => {
   }
 };
 
-export { getAllCompanies, getCompany, postCompany, putCompany, deleteCompany };
+export { getAllCompanies, getCompany, postCompany, putCompany, deleteCompany, putCoverImageCompany, putProfileImageCompany, putFollowing, putFollowers };
