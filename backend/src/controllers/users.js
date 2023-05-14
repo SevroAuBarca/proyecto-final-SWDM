@@ -5,6 +5,7 @@ import {
   postUserService,
 } from "../services/users.js";
 import bcrypt from "bcrypt";
+import { deleteImage, uploadImage } from "../utils/cloudinary.js";
 
 const getAllUsers = async (req, res) => {
   try {
@@ -82,6 +83,98 @@ const putUser = async (req, res) => {
     res.status(400).json({ message: "Error del servidor", body: err });
   }
 };
+
+const putFollowers = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  try {
+    const user = await getUserService(id);
+    if (user) {
+      user.seguidores = user.seguidores + 1;
+      user.save();
+      res.status(200).json({ message: "usuario actualizado", body: user });
+    } else {
+      res.status(200).json({ message: "No hay datos" });
+    }
+  } catch (err) {
+    res.status(400).json({ message: "Error del servidor", body: err });
+  }
+};
+
+const putFollowing = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  try {
+    const user = await getUserService(id);
+    if (user) {
+      user.seguidores = user.seguidos + 1;
+      user.save();
+      res.status(200).json({ message: "usuario actualizado", body: user });
+    } else {
+      res.status(200).json({ message: "No hay datos" });
+    }
+  } catch (err) {
+    res.status(400).json({ message: "Error del servidor", body: err });
+  }
+};
+
+const putProfileImageUser = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    const user = await getUserService(id);
+    if (user) {
+      if (user.imagen_perfil.public_id) {
+        await deleteImage(user.imagen_perfil.public_id);
+      }
+      if (req.file) {
+        const image = await uploadImage(req.file.path);
+        req.body.imagen_perfil = image;
+      }
+      user.imagen_perfil = req.body.imagen_perfil;
+
+      await user.save();
+      res.status(200).json({ message: "usuario actualizado", body: user });
+    } else {
+      res.status(200).json({ message: "No hay datos" });
+    }
+  } catch (err) {
+    res.status(400).json({ message: "Error del servidor", body: err });
+  }
+};
+
+const putCoverImageUser = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    const user = await getUserService(id);
+    if (user) {
+      if (user.imagen_portada.public_id) {
+        await deleteImage(user.imagen_portada.public_id);
+      }
+      if (req.file) {
+        const image = await uploadImage(req.file.path);
+        req.body.imagen_portada = image;
+      }
+      user.imagen_portada = req.body.imagen_portada;
+
+      await user.save();
+      res.status(200).json({ message: "usuario actualizado", body: user });
+    } else {
+      res.status(200).json({ message: "No hay datos" });
+    }
+  } catch (err) {
+    res.status(400).json({ message: "Error del servidor", body: err });
+  }
+};
+
+
 const deleteUser = async (req, res) => {
   const {
     params: { id },
@@ -95,4 +188,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-export { getAllUsers, getUser, postUser, loginUser, putUser, deleteUser };
+export { getAllUsers, getUser, postUser, loginUser, putUser, deleteUser, putProfileImageUser, putCoverImageUser, putFollowers, putFollowing };
