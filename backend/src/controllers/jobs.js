@@ -1,4 +1,4 @@
-import { getCompanyService } from "../services/companies";
+import { getCompanyService, putCompanyService } from "../services/companies.js";
 import {
   deleteJobService,
   getAllJobsService,
@@ -44,19 +44,21 @@ const getJob = async (req, res) => {
 };
 const postJobs = async (req, res) => {
   const { body } = req;
-  const token = getTokenFrom(reqq);
-  const decodedToken = jwt.verify(token, process.env.SECRET);
+  const token = getTokenFrom(req);
+  const decodedToken = jwt.verify(token, "XD");
   if (!token || !decodedToken.id) {
     return response.status(401).json({ error: "token missing or invalid" });
   }
   try {
     const company = await getCompanyService(decodedToken.id);
     const job = await postJobService(body);
+
     if (job) {
+      console.log(job);
       company.trabajos = [...company.trabajos, job._id];
-      job.compañia = [company.id];
-      const res = await job.save();
-      await company.save();
+      await putCompanyService(company.id, company);
+      job.compania = [company.id];
+      const res = await putJobService(job._id.toString(), job);
       res.status(200).json({ message: "Trabajo Creado", body: res });
     } else {
       res.status(200).json({ message: "No hay datos" });
@@ -67,7 +69,9 @@ const postJobs = async (req, res) => {
 };
 const putJobs = async (req, res) => {
   const { body } = req;
-  const { id } = req;
+  const {
+    params: { id },
+  } = req;
   try {
     const job = await getJobService(id);
     job.titulo = body.titulo;
@@ -84,16 +88,19 @@ const putJobs = async (req, res) => {
   }
 };
 const deleteJobs = async (req, res) => {
-  const { params: id } = req;
-  const token = getTokenFrom(request);
-  const decodedToken = jwt.verify(token, process.env.SECRET);
-
+  const {
+    params: { id },
+  } = req;
+  const token = getTokenFrom(req);
+  const decodedToken = jwt.verify(token, "XD");
   if (!token || !decodedToken.id) {
     return response.status(401).json({ error: "token missing or invalid" });
   }
   try {
     const job = await getJobService(id);
     const company = await getCompanyService(decodedToken.id);
+    console.log(job);
+    console.log(company);
     if (job.compania.toString() === company._id.toString()) {
       const jobs = company.trabajos.filter((job) => job.toString() !== id);
       company.trabajos = [...jobs];
@@ -106,9 +113,5 @@ const deleteJobs = async (req, res) => {
     res.status(400).json({ message: "Error del servidor", body: err });
   }
 };
-
-
-
-
 
 export { getAllJobs, getJob, postJobs, putJobs, deleteJobs };

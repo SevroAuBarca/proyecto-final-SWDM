@@ -1,4 +1,4 @@
-import Jobs from "../models/Companies.js";
+import Jobs from "../models/Jobs.js";
 const getAllJobsService = async () => await Jobs.find({});
 
 const getJobService = async (id) => await Jobs.findById(id);

@@ -58,7 +58,9 @@ const postCompany = async (req, res) => {
 };
 const putCompany = async (req, res) => {
   const { body } = req;
-  const { params: id } = req;
+  const {
+    params: { id },
+  } = req;
   try {
     const company = await getCompanyService(id);
     if (body.nombre_compañia) company.nombre_compañia = body.nombre_compañia;
@@ -75,7 +77,9 @@ const putCompany = async (req, res) => {
   }
 };
 const deleteCompany = async (req, res) => {
-  const { params: id } = req;
+  const {
+    params: { id },
+  } = req;
   try {
     const company = await deleteCompanyService(id);
 

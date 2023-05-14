@@ -1,7 +1,7 @@
 import Users from "../models/User.js";
 const getAllUsersService = async () => await Users.find({});
 
-const getUserService = async (id) => await Users.findById(id);
+const getUserService = async (id) => await Users.findOne({ _id: id });
 
 const postUserService = async (data) => await Users.create(data);
 

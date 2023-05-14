@@ -14,8 +14,7 @@ const UsersAPI = (app) => {
   router
     .get("/", getAllUsers)
     .get("/:id", getUser)
-    .post("/signup", postUser)
-    .post("/signin", loginUser)
+    .post("/", postUser)
     .put("/:id", putUser)
     .delete("/:id", deleteUser);
 

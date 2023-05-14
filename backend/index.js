@@ -5,6 +5,7 @@ import UsersAPI from "./src/routes/users.js";
 import CompaniesAPI from "./src/routes/companies.js";
 import JobsAPI from "./src/routes/jobs.js";
 import connection from "./src/database/index.js";
+import AuthAPI from "./src/routes/ath.js";
 
 const app = express();
 
@@ -17,6 +18,7 @@ connection();
 UsersAPI(app);
 CompaniesAPI(app);
 JobsAPI(app);
+AuthAPI(app);
 
 app.listen(3000, () => {
   console.log("http://localhost:3000");

@@ -4,7 +4,7 @@ const getAllCompaniesService = async () => await Companies.find({});
 const getCompanyService = async (id) => await Companies.findById(id);
 
 const loginCompanyService = async (username) =>
-  await Users.findOne({ nombre_compañia: username });
+  await Companies.findOne({ nombre_compañia: username });
 
 const postCompanyService = async (data) => await Companies.create(data);
 
