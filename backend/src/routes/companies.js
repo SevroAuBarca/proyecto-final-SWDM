@@ -6,6 +6,8 @@ import {
   postCompany,
   putCompany,
   putCoverImageCompany,
+  putFollowers,
+  putFollowing,
   putProfileImageCompany,
 } from "../controllers/companies.js";
 import { upload } from "../config/index.js";

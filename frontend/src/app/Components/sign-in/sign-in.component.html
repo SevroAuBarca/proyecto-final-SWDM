@@ -1,0 +1,42 @@
+<h3>Iniciar Sesion</h3>
+<form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-lg-12 no-pdd">
+      <div class="sn-field">
+        <input
+          type="text"
+          formControlName="usuario"
+          placeholder="Nombre de Usuario"
+        />
+        <i class="la la-user"></i>
+      </div>
+      <!--sn-field end-->
+    </div>
+    <div class="col-lg-12 no-pdd">
+      <div class="sn-field">
+        <input
+          type="password"
+          formControlName="contraseña"
+          placeholder="Contraseña"
+        />
+        <i class="la la-lock"></i>
+      </div>
+    </div>
+    <div class="col-lg-12 no-pdd">
+      <div class="checky-sec">
+        <div class="fgt-sec">
+          <input type="checkbox" formControlName="mantenerSesion" id="c1" />
+          <label for="c1">
+            <span></span>
+          </label>
+          <small>Recordarme</small>
+        </div>
+        <!-- fgt-sec end
+        <a href="#" title="">Forgot Password?</a> -->
+      </div>
+    </div>
+    <div class="col-lg-12 no-pdd">
+      <button type="submit" value="submit">Iniciar sesion</button>
+    </div>
+  </div>
+</form>

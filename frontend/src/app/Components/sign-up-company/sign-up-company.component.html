@@ -1,0 +1,52 @@
+<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-lg-12 no-pdd">
+      <div class="sn-field">
+        <input
+          type="text"
+          formControlName="nombre_compañia"
+          placeholder="Nombre Compañia"
+        />
+        <i class="la la-building"></i>
+      </div>
+    </div>
+    <div class="col-lg-12 no-pdd">
+      <div class="sn-field">
+        <input type="text" formControlName="pais" placeholder="Pais" />
+        <i class="la la-globe"></i>
+      </div>
+    </div>
+    <div class="col-lg-12 no-pdd">
+      <div class="sn-field">
+        <textarea
+          class="form-control"
+          formControlName="informacion"
+          placeholder="Informacion"
+        ></textarea>
+      </div>
+    </div>
+    <div class="col-lg-12 no-pdd">
+      <div class="sn-field">
+        <input
+          type="password"
+          formControlName="contraseña"
+          placeholder="Contraseña"
+        />
+        <i class="la la-lock"></i>
+      </div>
+    </div>
+    <div class="col-lg-12 no-pdd">
+      <div class="sn-field">
+        <input
+          type="password"
+          formControlName="confirmarContraseña"
+          placeholder="Recordar Contraseña"
+        />
+        <i class="la la-lock"></i>
+      </div>
+    </div>
+    <div class="col-lg-12 no-pdd">
+      <button type="submit" value="submit">Registrarse</button>
+    </div>
+  </div>
+</form>
