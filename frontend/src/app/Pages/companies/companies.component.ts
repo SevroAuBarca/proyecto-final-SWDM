@@ -17,7 +17,7 @@ export class CompaniesComponent implements OnInit {
 
   getCompanies() {
     this._company.getCompanies().subscribe((data) => {
-      this.companies = data;
+      this.companies = data.body;
     });
   }
 }

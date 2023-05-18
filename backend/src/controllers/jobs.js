@@ -1,8 +1,13 @@
-import { getCompanyService, putCompanyService } from "../services/companies.js";
+import {
+  getCompanyService,
+  getOnlyCompanyService,
+  putCompanyService,
+} from "../services/companies.js";
 import {
   deleteJobService,
   getAllJobsService,
   getJobService,
+  getOnlyJobService,
   postJobService,
   putJobService,
 } from "../services/jobs.js";
@@ -45,21 +50,25 @@ const getJob = async (req, res) => {
 const postJobs = async (req, res) => {
   const { body } = req;
   const token = getTokenFrom(req);
+  console.log(token);
   const decodedToken = jwt.verify(token, "XD");
+  console.log(decodedToken);
   if (!token || !decodedToken.id) {
     return response.status(401).json({ error: "token missing or invalid" });
   }
   try {
-    const company = await getCompanyService(decodedToken.id);
+    const company = await getOnlyCompanyService(decodedToken.id);
     const job = await postJobService(body);
 
     if (job) {
-      console.log(job);
       company.trabajos = [...company.trabajos, job._id];
-      await putCompanyService(company.id, company);
+      console.log(company);
+      await company.save();
       job.compania = [company.id];
-      const res = await putJobService(job._id.toString(), job);
-      res.status(200).json({ message: "Trabajo Creado", body: res });
+      console.log(job);
+
+      await job.save();
+      res.status(200).json({ message: "Trabajo Creado", body: job });
     } else {
       res.status(200).json({ message: "No hay datos" });
     }
@@ -97,15 +106,15 @@ const deleteJobs = async (req, res) => {
     return response.status(401).json({ error: "token missing or invalid" });
   }
   try {
-    const job = await getJobService(id);
-    const company = await getCompanyService(decodedToken.id);
+    const job = await getOnlyJobService(id);
+    const company = await getOnlyCompanyService(decodedToken.id);
     console.log(job);
     console.log(company);
-    if (job.compania.toString() === company._id.toString()) {
+    if (job.compania[0].toString() === company.id.toString()) {
       const jobs = company.trabajos.filter((job) => job.toString() !== id);
       company.trabajos = [...jobs];
       await company.save();
-      const job = await deleteJobService(id);
+      await job.save();
 
       res.status(200).json({ message: "usuario eliminado", body: job });
     }

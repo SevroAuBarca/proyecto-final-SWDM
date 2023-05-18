@@ -10,27 +10,35 @@
                 <div class="user-profile">
                   <div class="username-dt">
                     <div class="usr-pic">
-                      <img src="http://via.placeholder.com/100x100" alt="" />
+                      <img
+                        src="{{
+                          company.imagen_perfil ||
+                            'http://via.placeholder.com/100x100'
+                        }}"
+                        alt=""
+                      />
                     </div>
                   </div>
                   <!--username-dt end-->
                   <div class="user-specs">
-                    <h3>John Doe</h3>
-                    <span>Graphic Designer at Self Employed</span>
+                    <h3>{{ company["nombre_compañia"] }}</h3>
+                    <span>{{ company.informacion }}</span>
                   </div>
                 </div>
                 <!--user-profile end-->
                 <ul class="user-fw-status">
                   <li>
-                    <h4>Following</h4>
-                    <span>34</span>
+                    <h4>Siguiendo</h4>
+                    <span>{{ company.seguidos }}</span>
                   </li>
                   <li>
-                    <h4>Followers</h4>
-                    <span>155</span>
+                    <h4>Seguidores</h4>
+                    <span>{{ company.seguidores }}</span>
                   </li>
                   <li>
-                    <a [routerLink]="['/']" title="">View Profile</a>
+                    <a [routerLink]="['/MyFeed/' + company.id]" title=""
+                      >View Profile</a
+                    >
                   </li>
                 </ul>
               </div>
@@ -117,12 +125,15 @@
               </div>
               <!--post-topbar end-->
               <div class="posts-section">
-                <div class="post-bar">
+                <div
+                  *ngFor="let companies of company.trabajos"
+                  class="post-bar"
+                >
                   <div class="post_topbar">
                     <div class="usy-dt">
                       <img src="http://via.placeholder.com/50x50" alt="" />
                       <div class="usy-name">
-                        <h3>John Doe</h3>
+                        <h3>{{ company["nombre_compañia"] }}</h3>
                         <span
                           ><img src="images/clock.png" alt="" />3 min ago</span
                         >
@@ -133,52 +144,56 @@
                         ><i class="la la-ellipsis-v"></i
                       ></a>
                       <ul class="ed-options">
-                        <li><a href="#" title="">Edit Post</a></li>
-                        <li><a href="#" title="">Unsaved</a></li>
-                        <li><a href="#" title="">Unbid</a></li>
-                        <li><a href="#" title="">Close</a></li>
-                        <li><a href="#" title="">Hide</a></li>
+                        <li>
+                          <a
+                            class="post_project"
+                            title=""
+                            (click)="getIdJob(companies.id)"
+                            >Editar Trabajo</a
+                          >
+                        </li>
+                        <li>
+                          <a title="" (click)="deleteJob(companies.id)"
+                            >Eliminar Trabajo</a
+                          >
+                        </li>
                       </ul>
                     </div>
                   </div>
                   <div class="epi-sec">
                     <ul class="descp">
                       <li>
-                        <img src="images/icon8.png" alt="" /><span
-                          >Epic Coder</span
-                        >
-                      </li>
-                      <li>
-                        <img src="images/icon9.png" alt="" /><span>India</span>
+                        <img src="images/icon9.png" alt="" /><span>{{
+                          company.pais
+                        }}</span>
                       </li>
                     </ul>
                     <ul class="bk-links">
                       <li>
                         <a href="#" title=""><i class="la la-bookmark"></i></a>
                       </li>
-                      <li>
+                      <!-- <li>
                         <a href="#" title=""><i class="la la-envelope"></i></a>
-                      </li>
+                      </li> -->
                     </ul>
                   </div>
                   <div class="job_descp">
-                    <h3>Senior Wordpress Developer</h3>
+                    <h3>{{ companies.titulo }}</h3>
                     <ul class="job-dt">
-                      <li><a href="#" title="">Full Time</a></li>
-                      <li><span>$30 / hr</span></li>
+                      <li>
+                        <a href="#" title="">Tiempo: {{ companies.tiempo }}</a>
+                      </li>
+                      <li>
+                        <span>${{ companies.salario }} / mes</span>
+                      </li>
                     </ul>
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Aliquam luctus hendrerit metus, ut ullamcorper quam
-                      finibus at. Etiam id magna sit amet...
-                      <a href="#" title="">view more</a>
+                      {{ companies.descripcion }}
                     </p>
                     <ul class="skill-tags">
-                      <li><a href="#" title="">HTML</a></li>
-                      <li><a href="#" title="">PHP</a></li>
-                      <li><a href="#" title="">CSS</a></li>
-                      <li><a href="#" title="">Javascript</a></li>
-                      <li><a href="#" title="">Wordpress</a></li>
+                      <li>
+                        <a href="#" title="">{{ companies.habilidades }}</a>
+                      </li>
                     </ul>
                   </div>
                   <div class="job-status-bar">
@@ -410,44 +425,121 @@
   </div>
 </main>
 
-<div class="post-popup job_post">
+<div class="post-popup pst-pj">
   <div class="post-project">
-    <h3>Post a job</h3>
+    <h3>Editar Trabajo</h3>
     <div class="post-project-fields">
-      <form>
+      <form [formGroup]="formUpdate" (ngSubmit)="putJob(getId)">
         <div class="row">
           <div class="col-lg-12">
-            <input type="text" name="title" placeholder="Title" />
+            <input type="text" formControlName="titulo" placeholder="Titulo" />
           </div>
           <div class="col-lg-12">
             <div class="inp-field">
-              <select>
-                <option>Category</option>
-                <option>Category 1</option>
-                <option>Category 2</option>
-                <option>Category 3</option>
-              </select>
+              <input
+                type="text"
+                formControlName="categoria"
+                placeholder="Categoria"
+              />
             </div>
           </div>
           <div class="col-lg-12">
-            <input type="text" name="skills" placeholder="Skills" />
+            <input
+              type="text"
+              formControlName="habilidades"
+              placeholder="Habilidades"
+            />
           </div>
           <div class="col-lg-6">
             <div class="price-br">
-              <input type="text" name="price1" placeholder="Price" />
+              <input
+                type="number"
+                formControlName="salario"
+                placeholder="Salario"
+              />
               <i class="la la-dollar"></i>
             </div>
           </div>
           <div class="col-lg-6">
             <div class="inp-field">
-              <select>
-                <option>Full Time</option>
-                <option>Half time</option>
+              <select formControlName="tiempo">
+                <option>Tiempo Completo</option>
+                <option>Medio Tiempo</option>
               </select>
             </div>
           </div>
           <div class="col-lg-12">
-            <textarea name="description" placeholder="Description"></textarea>
+            <textarea
+              formControlName="descripcion"
+              placeholder="Descripcion"
+            ></textarea>
+          </div>
+          <div class="col-lg-12">
+            <ul>
+              <li>
+                <button class="active" type="submit" value="post">Post</button>
+              </li>
+              <li><a href="#" title="">Cancel</a></li>
+            </ul>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!--post-project-fields end-->
+    <a href="#" title=""><i class="la la-times-circle-o"></i></a>
+  </div>
+  <!--post-project end-->
+</div>
+<!--post-project-popup end-->
+
+<div class="post-popup job_post">
+  <div class="post-project">
+    <h3>Crear Trabajo</h3>
+    <div class="post-project-fields">
+      <form [formGroup]="form" (ngSubmit)="postJob()">
+        <div class="row">
+          <div class="col-lg-12">
+            <input type="text" formControlName="titulo" placeholder="Titulo" />
+          </div>
+          <div class="col-lg-12">
+            <div class="inp-field">
+              <input
+                type="text"
+                formControlName="categoria"
+                placeholder="Categoria"
+              />
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <input
+              type="text"
+              formControlName="habilidades"
+              placeholder="Habilidades"
+            />
+          </div>
+          <div class="col-lg-6">
+            <div class="price-br">
+              <input
+                type="number"
+                formControlName="salario"
+                placeholder="Salario"
+              />
+              <i class="la la-dollar"></i>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="inp-field">
+              <select formControlName="tiempo">
+                <option>Tiempo Completo</option>
+                <option>Medio Tiempo</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <textarea
+              formControlName="descripcion"
+              placeholder="Descripcion"
+            ></textarea>
           </div>
           <div class="col-lg-12">
             <ul>

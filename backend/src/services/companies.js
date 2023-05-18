@@ -1,15 +1,19 @@
 import Companies from "../models/Companies.js";
 const getAllCompaniesService = async () => await Companies.find({});
 
-const getCompanyService = async (id) => await Companies.findById(id);
+const getCompanyService = async (id) =>
+  await Companies.findById(id).populate("trabajos", {});
 
+const getOnlyCompanyService = async (id) => await Companies.findById(id);
 const loginCompanyService = async (username) =>
   await Companies.findOne({ nombre_compañia: username });
 
 const postCompanyService = async (data) => await Companies.create(data);
 
 const putCompanyService = async (id, data) =>
-  await Companies.findByIdAndUpdate(id, data);
+  await Companies.findByIdAndUpdate(id, data, {
+    new: true,
+  });
 
 const deleteCompanyService = async (id) =>
   await Companies.findByIdAndDelete(id);
@@ -21,4 +25,5 @@ export {
   putCompanyService,
   deleteCompanyService,
   loginCompanyService,
+  getOnlyCompanyService,
 };

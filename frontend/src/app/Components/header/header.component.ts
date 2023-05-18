@@ -19,7 +19,11 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    //this.localStorageData = this._localStorage.getLocalStorage('session');
+    if (!this._localStorage.getLocalStorage('session')) {
+      this.router.navigate(['/']);
+    } else {
+      this.localStorageData = this._localStorage.getLocalStorage('session');
+    }
   }
 
   cerrarSesion() {

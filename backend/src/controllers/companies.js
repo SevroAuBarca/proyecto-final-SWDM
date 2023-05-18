@@ -7,7 +7,6 @@ import {
 } from "../services/companies.js";
 import { deleteImage, uploadImage } from "../utils/cloudinary.js";
 
-
 const getAllCompanies = async (req, res) => {
   try {
     const companies = await getAllCompaniesService();
@@ -121,6 +120,7 @@ const putProfileImageCompany = async (req, res) => {
   const {
     params: { id },
   } = req;
+  console.log(req);
   try {
     const company = await getCompanyService(id);
     if (company) {
@@ -134,7 +134,7 @@ const putProfileImageCompany = async (req, res) => {
       company.imagen_perfil = req.body.imagen_perfil;
 
       await company.save();
-      res.status(200).json({ message: "usuario actualizado", body: user });
+      res.status(200).json({ message: "usuario actualizado", body: company });
     } else {
       res.status(200).json({ message: "No hay datos" });
     }
@@ -147,20 +147,36 @@ const putCoverImageCompany = async (req, res) => {
   const {
     params: { id },
   } = req;
+  console.log(req.file, id);
+
   try {
-    const comapany = await getCompanyService(id);
-    if (comapany) {
-      if (comapany.imagen_portada.public_id) {
-        await deleteImage(comapany.imagen_portada.public_id);
+    const company = await getCompanyService(id);
+    if (company) {
+      if (company.imagen_portada.public_id) {
+        await deleteImage(company.imagen_portada.public_id);
       }
       if (req.file) {
         const image = await uploadImage(req.file.path);
+        console.log(image);
         req.body.imagen_portada = image;
       }
-      comapany.imagen_portada = req.body.imagen_portada;
+      company.imagen_portada = req.body.imagen_portada;
 
-      await comapany.save();
-      res.status(200).json({ message: "usuario actualizado", body: user });
+      company
+        .save()
+        .then((user) => {
+          // If everything goes as planed
+          //use the retured user document for something
+          return res
+            .status(200)
+            .json({ message: "usuario actualizado", body: user });
+        })
+        .catch((error) => {
+          //When there are errors We handle them here
+          console.log(error);
+          res.status(400).send("Bad Request");
+        });
+      // res.status(200).json({ message: "usuario actualizado", body: company });
     } else {
       res.status(200).json({ message: "No hay datos" });
     }
@@ -182,4 +198,14 @@ const deleteCompany = async (req, res) => {
   }
 };
 
-export { getAllCompanies, getCompany, postCompany, putCompany, deleteCompany, putCoverImageCompany, putProfileImageCompany, putFollowing, putFollowers };
+export {
+  getAllCompanies,
+  getCompany,
+  postCompany,
+  putCompany,
+  deleteCompany,
+  putCoverImageCompany,
+  putProfileImageCompany,
+  putFollowing,
+  putFollowers,
+};

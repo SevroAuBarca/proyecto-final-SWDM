@@ -1,20 +1,28 @@
-<form>
+<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
   <div class="row">
     <div class="col-lg-12 no-pdd">
       <div class="sn-field">
-        <input type="text" name="name" placeholder="Nombre Completo" />
+        <input
+          type="text"
+          formControlName="nombre_completo"
+          placeholder="Nombre Completo"
+        />
         <i class="la la-user"></i>
       </div>
     </div>
     <div class="col-lg-12 no-pdd">
       <div class="sn-field">
-        <input type="text" name="name" placeholder="Nombre de Usuario" />
+        <input
+          type="text"
+          formControlName="nombre_usuario"
+          placeholder="Nombre de Usuario"
+        />
         <i class="la la-user"></i>
       </div>
     </div>
     <div class="col-lg-12 no-pdd">
       <div class="sn-field">
-        <input type="text" name="country" placeholder="pais" />
+        <input type="text" formControlName="pais" placeholder="pais" />
         <i class="la la-globe"></i>
       </div>
     </div>
@@ -22,7 +30,7 @@
       <div class="sn-field">
         <textarea
           class="form-control"
-          name="info"
+          formControlName="informacion"
           placeholder="Informacion"
         ></textarea>
       </div>
@@ -30,7 +38,11 @@
 
     <div class="col-lg-12 no-pdd">
       <div class="sn-field">
-        <input type="password" name="password" placeholder="Contraseña" />
+        <input
+          type="password"
+          formControlName="contraseña"
+          placeholder="Contraseña"
+        />
         <i class="la la-lock"></i>
       </div>
     </div>
@@ -38,7 +50,7 @@
       <div class="sn-field">
         <input
           type="password"
-          name="repeat-password"
+          formControlName="confirmarContraseña"
           placeholder="Repetir Contraseña"
         />
         <i class="la la-lock"></i>

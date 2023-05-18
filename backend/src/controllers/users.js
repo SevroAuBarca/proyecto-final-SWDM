@@ -37,6 +37,7 @@ const getUser = async (req, res) => {
 };
 const postUser = async (req, res) => {
   const { body } = req;
+  console.log(body);
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(body.contraseña, saltRounds);
   body.contraseña = passwordHash;
@@ -174,7 +175,6 @@ const putCoverImageUser = async (req, res) => {
   }
 };
 
-
 const deleteUser = async (req, res) => {
   const {
     params: { id },
@@ -188,4 +188,15 @@ const deleteUser = async (req, res) => {
   }
 };
 
-export { getAllUsers, getUser, postUser, loginUser, putUser, deleteUser, putProfileImageUser, putCoverImageUser, putFollowers, putFollowing };
+export {
+  getAllUsers,
+  getUser,
+  postUser,
+  loginUser,
+  putUser,
+  deleteUser,
+  putProfileImageUser,
+  putCoverImageUser,
+  putFollowers,
+  putFollowing,
+};

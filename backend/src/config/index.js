@@ -1,6 +1,7 @@
 import multer from "multer";
 import cloudinary from "cloudinary";
-const upload = multer();
+
+const upload = multer({ dest: "upload/" });
 const cloudinaryService = cloudinary.config({
   cloud_name: "dbxkusypn",
   api_key: "467826675218695",

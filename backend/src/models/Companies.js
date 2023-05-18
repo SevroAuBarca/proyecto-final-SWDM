@@ -14,7 +14,7 @@ const CompanySchema = new Schema({
   trabajos: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Jobs",
+      ref: "Job",
     },
   ],
 });

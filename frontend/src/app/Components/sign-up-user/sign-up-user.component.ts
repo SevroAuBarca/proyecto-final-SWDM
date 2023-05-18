@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
+import * as alertify from 'alertifyjs';
 
 @Component({
   selector: 'app-sign-up-user',
@@ -30,7 +31,12 @@ export class SignUpUserComponent {
     } = this.signUpForm.value;
     console.log(this.signUpForm.value);
     if (contraseña !== confirmarContraseña) {
-      alert('Contraseñas no coinciden');
+      alertify.alert(
+        'Las Contraseñas no coinciden, favor de verificar',
+        function () {
+          alertify.message('OK');
+        }
+      );
     } else {
       this._user
         .postUser({
@@ -41,8 +47,9 @@ export class SignUpUserComponent {
           contraseña,
         })
         .subscribe((data: any) => {
+          console.log(data);
           if (data) {
-            window.location.reload;
+            window.location.reload();
           }
         });
     }
