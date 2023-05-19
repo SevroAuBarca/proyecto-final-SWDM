@@ -10,6 +10,7 @@ import {
 const router = express.Router();
 
 const JobsAPI = (app) => {
+  //las rutas para hacer la llamada a la api, este es la de jobs
   router
     .get("/", getAllJobs)
     .get("/:id", getJob)

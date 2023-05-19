@@ -15,6 +15,7 @@ import { upload } from "../config/index.js";
 const router = express.Router();
 
 const CompaniesAPI = (app) => {
+  //las rutas para hacer la llamada a la api, este es la de companies, importamos la variable upload para ponerla en la ruta como un middleware, qque es el que agarrara la imagen o archivo(en este case imagen) del la request
   router
     .get("/", getAllCompanies)
     .get("/:id", getCompany)

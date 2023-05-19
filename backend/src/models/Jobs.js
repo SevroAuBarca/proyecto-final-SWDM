@@ -8,6 +8,7 @@ const JobSchema = new Schema({
   salario: Number,
   tiempo: String,
   descripcion: String,
+  //esta es una referencia a otro modelo, donde podremos obtener sus datos en este esquema guardando su id en el array
   compania: [
     {
       type: mongoose.Schema.Types.ObjectId,

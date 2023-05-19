@@ -18,6 +18,7 @@ import { SignInComponent } from './Components/sign-in/sign-in.component';
 import { SignUpUserComponent } from './Components/sign-up-user/sign-up-user.component';
 import { SignUpCompanyComponent } from './Components/sign-up-company/sign-up-company.component';
 import { JobsComponent } from './Pages/jobs/jobs.component';
+import { EditModalComponent } from './components/edit-modal/edit-modal.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { JobsComponent } from './Pages/jobs/jobs.component';
     SignUpUserComponent,
     SignUpCompanyComponent,
     JobsComponent,
+    EditModalComponent,
   ],
   imports: [
     BrowserModule,

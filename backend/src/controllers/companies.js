@@ -6,7 +6,7 @@ import {
   postCompanyService,
 } from "../services/companies.js";
 import { deleteImage, uploadImage } from "../utils/cloudinary.js";
-
+//metodo para obtener todos las compañias
 const getAllCompanies = async (req, res) => {
   try {
     const companies = await getAllCompaniesService();
@@ -19,6 +19,7 @@ const getAllCompanies = async (req, res) => {
     res.status(400).json({ message: "Error del servidor", body: err });
   }
 };
+//metodo para obtener una compañia
 
 const getCompany = async (req, res) => {
   const {
@@ -35,6 +36,7 @@ const getCompany = async (req, res) => {
     res.status(400).json({ message: "Error del servidor", body: err });
   }
 };
+//metodo para postear una compañia, encripta la contraseña dada con bcrypt
 const postCompany = async (req, res) => {
   const { body } = req;
   const saltRounds = 10;
@@ -57,6 +59,8 @@ const postCompany = async (req, res) => {
     res.status(400).json({ message: "Error del servidor", body: err });
   }
 };
+//metodo para actualizar compañia
+
 const putCompany = async (req, res) => {
   const { body } = req;
   const {
@@ -77,6 +81,7 @@ const putCompany = async (req, res) => {
     res.status(400).json({ message: "Error del servidor", body: err });
   }
 };
+//metodo para poner los seguidores (puede cambiar)
 
 const putFollowers = async (req, res) => {
   const {
@@ -96,6 +101,7 @@ const putFollowers = async (req, res) => {
     res.status(400).json({ message: "Error del servidor", body: err });
   }
 };
+//metodo para poner los seguidos (puede cambiar)
 
 const putFollowing = async (req, res) => {
   const {
@@ -115,7 +121,7 @@ const putFollowing = async (req, res) => {
     res.status(400).json({ message: "Error del servidor", body: err });
   }
 };
-
+//metodo para añadir la imagen de perfil de la compañia, usando el servicio de cloudinart para guardar la imagen
 const putProfileImageCompany = async (req, res) => {
   const {
     params: { id },
@@ -124,9 +130,11 @@ const putProfileImageCompany = async (req, res) => {
   try {
     const company = await getCompanyService(id);
     if (company) {
+      //si ya hay imagen guardada la elimina para poner la que se mando del request
       if (company.imagen_perfil.public_id) {
         await deleteImage(company.imagen_perfil.public_id);
       }
+      //req.files detecta si hay un archivo imagen en la propiedad files del request
       if (req.file) {
         const image = await uploadImage(req.file.path);
         req.body.imagen_perfil = image;
@@ -143,6 +151,7 @@ const putProfileImageCompany = async (req, res) => {
   }
 };
 
+//metodo para añadir la imagen de portada del usuario, usando el servicio de cloudinart para guardar la imagen
 const putCoverImageCompany = async (req, res) => {
   const {
     params: { id },
@@ -152,9 +161,11 @@ const putCoverImageCompany = async (req, res) => {
   try {
     const company = await getCompanyService(id);
     if (company) {
+      //si ya hay imagen guardada la elimina para poner la que se mando del request
       if (company.imagen_portada.public_id) {
         await deleteImage(company.imagen_portada.public_id);
       }
+      //req.files detecta si hay un archivo imagen en la propiedad files del request
       if (req.file) {
         const image = await uploadImage(req.file.path);
         console.log(image);
@@ -184,6 +195,7 @@ const putCoverImageCompany = async (req, res) => {
     res.status(400).json({ message: "Error del servidor", body: err });
   }
 };
+//metodo para eliminar compañia (puede cambiar)
 
 const deleteCompany = async (req, res) => {
   const {

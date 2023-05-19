@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 const { Schema, model } = mongoose;
-
+//el esquema del modelo, asi es como debe aparecer los datos y que tipo de datos
 const UserSchema = new Schema({
   nombre_completo: String,
   nombre_usuario: String,
@@ -15,6 +15,7 @@ const UserSchema = new Schema({
   contraseña: String,
 });
 
+//esto lo que hace es quitar el _id y _v del documento cuando lo mandamos a llamar y es remplazado por id y v
 UserSchema.set("toJSON", {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();

@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
   public localStorageData: any = {};
   @ViewChild('post') postForm!: ElementRef<HTMLInputElement>;
   @ViewChild('put') putForm!: ElementRef<HTMLInputElement>;
+  @ViewChild('options') options!: ElementRef<HTMLInputElement>;
 
   constructor(
     private _company: CompanyService,
@@ -48,6 +49,7 @@ export class HomeComponent implements OnInit {
   getCompany() {
     this._company.getCompany(this.localStorageData.id).subscribe((data) => {
       this.company = data.body;
+      this.company.trabajos = this.company.trabajos.reverse();
       console.log(this.company);
     });
   }
@@ -70,7 +72,7 @@ export class HomeComponent implements OnInit {
     this._job.postJob(this.form.value).subscribe((data) => {
       if (data.body) {
         this.getCompany();
-        this.postForm.nativeElement.classList.toggle('active');
+        this.closeModal('post');
       }
     });
   }
@@ -79,7 +81,7 @@ export class HomeComponent implements OnInit {
     this._job.putJob(id, this.formUpdate.value).subscribe((data) => {
       if (data.body) {
         this.getCompany();
-        window.location.reload();
+        this.closeModal('put');
       }
     });
   }
@@ -97,5 +99,24 @@ export class HomeComponent implements OnInit {
     this.getJob();
   }
 
-  closeModal() {}
+  toggleOptions() {
+    if (this.options.nativeElement.classList.contains('active')) {
+      this.options.nativeElement.classList.remove('active');
+    } else {
+      this.options.nativeElement.classList.add('active');
+    }
+  }
+
+  showModal(method: string) {
+    method === 'post'
+      ? this.postForm.nativeElement.classList.add('active')
+      : this.putForm.nativeElement.classList.add('active');
+  }
+
+  closeModal(method: string) {
+    console.log('xd');
+    method === 'post'
+      ? this.postForm.nativeElement.classList.remove('active')
+      : this.putForm.nativeElement.classList.remove('active');
+  }
 }

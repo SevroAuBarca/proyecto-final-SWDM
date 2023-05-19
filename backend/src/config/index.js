@@ -1,11 +1,5 @@
 import multer from "multer";
-import cloudinary from "cloudinary";
-
+//importamos multer, es una libreria que te permite enviar archivos de parte del cliente que no sean JSON al servidor, por ejemplo Imagenes, Videos, pdfs, excels, etc. crearemos la variable para poder usar la libreria (el objeto va a dedicar la ubicacion donde estaran los archivos)
 const upload = multer({ dest: "upload/" });
-const cloudinaryService = cloudinary.config({
-  cloud_name: "dbxkusypn",
-  api_key: "467826675218695",
-  api_secret: "wxpcHkkwekVYLf9tzCAtuhZxeTw",
-});
 
-export { upload, cloudinaryService };
+export { upload };

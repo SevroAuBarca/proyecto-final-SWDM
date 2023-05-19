@@ -11,6 +11,7 @@ const CompanySchema = new Schema({
   imagen_portada: { url: String, public_id: String },
   contratista: Boolean,
   contraseña: String,
+  //esta es una referencia a otro modelo, donde podremos obtener sus datos en este esquema guardando su id en el array
   trabajos: [
     {
       type: mongoose.Schema.Types.ObjectId,

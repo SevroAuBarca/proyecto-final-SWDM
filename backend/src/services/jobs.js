@@ -1,4 +1,5 @@
 import Jobs from "../models/Jobs.js";
+///estos metodos sirven para obtener los datos de la base de datos, los basicos CRUD, el metodo populate sirve para obtener los datos que tienen una referencia a otro modelo, utilizando el nombre de la propiedad de dicho model
 const getAllJobsService = async () =>
   await Jobs.find({}).populate("compania", {});
 

@@ -1,4 +1,6 @@
 import Users from "../models/User.js";
+
+//estos metodos sirven para obtener los datos de la base de datos, los basicos CRUD
 const getAllUsersService = async () => await Users.find({});
 
 const getUserService = async (id) => await Users.findOne({ _id: id });
