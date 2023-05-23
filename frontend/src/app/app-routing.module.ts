@@ -9,6 +9,7 @@ import { SettingsComponent } from './Pages/settings/settings.component';
 import { CompaniesComponent } from './pages/companies/companies.component';
 import { UsersComponent } from './pages/users/users.component';
 import { JobsComponent } from './Pages/jobs/jobs.component';
+import { ProfileUserComponent } from './Pages/profile-user/profile-user.component';
 
 /*
   routes:
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'Jobs', component: JobsComponent },
   { path: 'Job/:id', component: JobComponent },
   { path: 'Profile/:id', component: ProfileComponent },
+  { path: 'ProfileUser/:id', component: ProfileUserComponent },
   { path: 'MyFeed/:id', component: MyFeedComponent },
   { path: 'Settings/:id', component: SettingsComponent },
 ];

@@ -19,6 +19,7 @@ import { SignUpUserComponent } from './Components/sign-up-user/sign-up-user.comp
 import { SignUpCompanyComponent } from './Components/sign-up-company/sign-up-company.component';
 import { JobsComponent } from './Pages/jobs/jobs.component';
 import { EditModalComponent } from './components/edit-modal/edit-modal.component';
+import { ProfileUserComponent } from './Pages/profile-user/profile-user.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { EditModalComponent } from './components/edit-modal/edit-modal.component
     SignUpCompanyComponent,
     JobsComponent,
     EditModalComponent,
+    ProfileUserComponent,
   ],
   imports: [
     BrowserModule,

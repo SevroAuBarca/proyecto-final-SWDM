@@ -43,6 +43,7 @@ export class MyFeedComponent {
   getUser() {
     this._user.getUser(this.localStorageData.id).subscribe((data) => {
       this.user = data.body;
+      console.log(this.user);
     });
   }
 

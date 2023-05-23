@@ -17,12 +17,15 @@
               <div class="company-up-info">
                 <img
                   src="{{
-                    user.imagen_perfil.url || 'http://via.placeholder.com/91x91'
+                    user?.imagen_perfil?.url ||
+                      'http://via.placeholder.com/91x91'
                   }}"
                   alt=""
+                  width="91"
+                  height="91"
                 />
                 <h3>{{ user.nombre_usuario }}</h3>
-                <h4>Graphic Designer</h4>
+                <h4>{{ user.informacion }}</h4>
                 <!-- <ul>
                   <li><a href="#" title="" class="follow">Follow</a></li>
                   <li>
@@ -34,7 +37,7 @@
                 </ul> -->
               </div>
               <a
-                [routerLink]="['/Profile/' + user.id]"
+                [routerLink]="['/ProfileUser/' + user.id]"
                 title=""
                 class="view-more-pro"
                 >Ver Perfil</a

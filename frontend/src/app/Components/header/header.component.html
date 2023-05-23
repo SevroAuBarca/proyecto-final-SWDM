@@ -43,11 +43,11 @@
       <!--menu-btn end-->
       <div class="user-account">
         <div class="user-info">
-          <img src="http://via.placeholder.com/30x30" alt="" />
-          <a href="#" title="">{{ localStorageData.username }}</a>
-          <i class="la la-sort-down"></i>
+          <!-- <img src="http://via.placeholder.com/30x30" alt="" /> -->
+          <a title="">{{ localStorageData.username }}</a>
+          <i class="la la-sort-down" (click)="toggleOptions()"></i>
         </div>
-        <div class="user-account-settingss">
+        <div class="user-account-settingss" #options>
           <!--search_form end-->
           <h3>Ajustes</h3>
           <ul class="us-links">
@@ -63,7 +63,7 @@
             </li>
           </ul>
           <h3 class="tc">
-            <a href="#" title="" (click)="cerrarSesion()">Cerrar Sesion</a>
+            <a title="" (click)="cerrarSesion()">Cerrar Sesion</a>
           </h3>
         </div>
         <!--user-account-settingss end-->

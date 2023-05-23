@@ -4,7 +4,7 @@
   <section class="cover-sec">
     <img
       src="{{
-        user.imagen_portada.url || 'http://via.placeholder.com/1600x400'
+        user?.imagen_portada?.url || 'http://via.placeholder.com/1600x400'
       }}"
       alt=""
       height="400"
@@ -33,7 +33,7 @@
                   <div class="user-pro-img">
                     <img
                       src="{{
-                        user.imagen_perfil.url ||
+                        user?.imagen_perfil?.url ||
                           'http://via.placeholder.com/170x170'
                       }}"
                       alt=""
@@ -85,7 +85,11 @@
                   <!--star-descp end-->
                   <div class="tab-feed st2">
                     <ul>
-                      <li data-tab="feed-dd" class="active">
+                      <li
+                        data-tab="feed-dd"
+                        class="active"
+                        *ngIf="localStorageData.contratista"
+                      >
                         <a href="#" title="">
                           <img src="images/ic1.png" alt="" />
                           <span>Feed</span>
@@ -103,7 +107,9 @@
                 </div>
                 <!--user-tab-sec end-->
                 <div
-                  class="product-feed-tab current"
+                  class="product-feed-tab {{
+                    localStorageData.contratista && 'current'
+                  }}"
                   id="feed-dd"
                   *ngIf="localStorageData.contratista"
                 >
@@ -194,7 +200,12 @@
                   <!--posts-section end-->
                 </div>
                 <!--product-feed-tab end-->
-                <div class="product-feed-tab" id="info-dd">
+                <div
+                  class="product-feed-tab {{
+                    !localStorageData.contratista && 'current'
+                  }}"
+                  id="info-dd"
+                >
                   <div class="user-profile-ov">
                     <h3>
                       <a href="#" title="" class="overview-open">Overview</a>
