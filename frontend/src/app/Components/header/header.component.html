@@ -2,7 +2,20 @@
   <div class="container">
     <div class="header-data">
       <div class="logo">
-        <a [routerLink]="['/Home']" title="" class="h3 text-white">Jobs </a>
+        <a
+          *ngIf="localStorageData.contratista"
+          [routerLink]="['/Home']"
+          title=""
+          class="h3 text-white"
+          >Jobs
+        </a>
+        <a
+          *ngIf="!localStorageData.contratista"
+          [routerLink]="['/Jobs']"
+          title=""
+          class="h3 text-white"
+          >Jobs
+        </a>
       </div>
       <!--logo end-->
       <!--search-bar end-->
