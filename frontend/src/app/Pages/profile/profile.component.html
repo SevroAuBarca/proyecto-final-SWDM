@@ -3,8 +3,11 @@
 
   <section class="cover-sec">
     <img
-      src="{{ user.imagen_portada || 'http://via.placeholder.com/1600x400' }}"
+      src="{{
+        user.imagen_portada.url || 'http://via.placeholder.com/1600x400'
+      }}"
       alt=""
+      height="400"
     />
   </section>
 
@@ -19,10 +22,12 @@
                   <div class="user-pro-img">
                     <img
                       src="{{
-                        user.imagen_perfil ||
+                        user.imagen_perfil.url ||
                           'http://via.placeholder.com/170x170'
                       }}"
                       alt=""
+                      width="200"
+                      height="200"
                     />
                   </div>
                   <!--user-pro-img end-->
@@ -65,10 +70,14 @@
                   <!--star-descp end-->
                   <div class="tab-feed st2">
                     <ul>
-                      <li data-tab="feed-dd" class="active">
+                      <li
+                        data-tab="feed-dd"
+                        class="active"
+                        *ngIf="localStorageData.contratista"
+                      >
                         <a href="#" title="">
                           <img src="images/ic1.png" alt="" />
-                          <span>Feed</span>
+                          <span>Muro</span>
                         </a>
                       </li>
                       <li data-tab="info-dd">

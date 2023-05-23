@@ -3,11 +3,14 @@
 
   <section class="cover-sec">
     <img
-      src="{{ user.imagen_portada || 'http://via.placeholder.com/1600x400' }}"
+      src="{{
+        user.imagen_portada.url || 'http://via.placeholder.com/1600x400'
+      }}"
       alt=""
+      height="400"
     />
     <a title="" (click)="openFormCover()"
-      ><i class="fa fa-camera"></i> Change Image</a
+      ><i class="fa fa-camera"></i> Cambiar Imagen de Portada</a
     >
     <input
       class="hidden"
@@ -30,12 +33,14 @@
                   <div class="user-pro-img">
                     <img
                       src="{{
-                        user.imagen_perfil ||
+                        user.imagen_perfil.url ||
                           'http://via.placeholder.com/170x170'
                       }}"
                       alt=""
+                      width="200"
+                      height="200"
                     />
-                    <a href="#" title="" (click)="openFormProfile()"
+                    <a title="" (click)="openFormProfile()"
                       ><i class="fa fa-camera"></i
                     ></a>
                     <input
@@ -117,15 +122,6 @@
                               ago</span
                             >
                           </div>
-                        </div>
-                        <div class="ed-opts">
-                          <a href="#" title="" class="ed-opts-open"
-                            ><i class="la la-ellipsis-v"></i
-                          ></a>
-                          <ul class="ed-options">
-                            <li><a href="#" title="">Edit Post</a></li>
-                            <li><a href="#" title="">Delete Post</a></li>
-                          </ul>
                         </div>
                       </div>
                       <div class="epi-sec">

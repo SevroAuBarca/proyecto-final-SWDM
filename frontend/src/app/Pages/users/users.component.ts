@@ -17,7 +17,8 @@ export class UsersComponent {
 
   getUsers() {
     this._user.getUsers().subscribe((data) => {
-      this.users = data;
+      this.users = data.body;
+      console.log(data);
     });
   }
 }

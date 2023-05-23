@@ -134,89 +134,10 @@
                   *ngFor="let companies of company.trabajos"
                   class="post-bar"
                 >
-                  <!-- <app-edit-modal [companies]="companies" () /> -->
-                  <div class="post_topbar">
-                    <div class="usy-dt">
-                      <img src="http://via.placeholder.com/50x50" alt="" />
-                      <div class="usy-name">
-                        <h3>{{ company["nombre_compañia"] }}</h3>
-                        <span
-                          ><img src="images/clock.png" alt="" />3 min ago</span
-                        >
-                      </div>
-                    </div>
-                    <div class="ed-opts">
-                      <a title="" class="ed-opts-open" (click)="toggleOptions()"
-                        ><i class="la la-ellipsis-v"></i
-                      ></a>
-                      <ul class="ed-options" #options>
-                        <li>
-                          <a
-                            class="post_project"
-                            title=""
-                            (click)="getIdJob(companies.id); showModal('put')"
-                            >Editar Trabajo</a
-                          >
-                        </li>
-                        <li>
-                          <a title="" (click)="deleteJob(companies.id)"
-                            >Eliminar Trabajo</a
-                          >
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="epi-sec">
-                    <ul class="descp">
-                      <li>
-                        <img src="images/icon9.png" alt="" /><span>{{
-                          company.pais
-                        }}</span>
-                      </li>
-                    </ul>
-                    <ul class="bk-links">
-                      <li>
-                        <a href="#" title=""><i class="la la-bookmark"></i></a>
-                      </li>
-                      <!-- <li>
-                        <a href="#" title=""><i class="la la-envelope"></i></a>
-                      </li> -->
-                    </ul>
-                  </div>
-                  <div class="job_descp">
-                    <h3>{{ companies.titulo }}</h3>
-                    <ul class="job-dt">
-                      <li>
-                        <a href="#" title="">Tiempo: {{ companies.tiempo }}</a>
-                      </li>
-                      <li>
-                        <span>${{ companies.salario }} / mes</span>
-                      </li>
-                    </ul>
-                    <p>
-                      {{ companies.descripcion }}
-                    </p>
-                    <ul class="skill-tags">
-                      <li>
-                        <a href="#" title="">{{ companies.habilidades }}</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="job-status-bar">
-                    <ul class="like-com">
-                      <li>
-                        <a href="#"><i class="la la-heart"></i> Like</a>
-                        <img src="images/liked-img.png" alt="" />
-                        <span>25</span>
-                      </li>
-                      <li>
-                        <a href="#" title="" class="com"
-                          ><img src="images/com.png" alt="" /> Comment 15</a
-                        >
-                      </li>
-                    </ul>
-                    <a><i class="la la-eye"></i>Views 50</a>
-                  </div>
+                  <app-edit-modal
+                    [company]="companies"
+                    (getCompany)="ngOnInit()"
+                  />
                 </div>
                 <!--post-bar end-->
 
@@ -431,75 +352,6 @@
   </div>
 </main>
 
-<div class="post-popup pst-pj" #put>
-  <div class="post-project">
-    <h3>Editar Trabajo</h3>
-    <div class="post-project-fields">
-      <form [formGroup]="formUpdate" (ngSubmit)="putJob(getId)">
-        <div class="row">
-          <div class="col-lg-12">
-            <input type="text" formControlName="titulo" placeholder="Titulo" />
-          </div>
-          <div class="col-lg-12">
-            <div class="inp-field">
-              <input
-                type="text"
-                formControlName="categoria"
-                placeholder="Categoria"
-              />
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <input
-              type="text"
-              formControlName="habilidades"
-              placeholder="Habilidades"
-            />
-          </div>
-          <div class="col-lg-6">
-            <div class="price-br">
-              <input
-                type="number"
-                formControlName="salario"
-                placeholder="Salario"
-              />
-              <i class="la la-dollar"></i>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="inp-field">
-              <select formControlName="tiempo">
-                <option>Tiempo Completo</option>
-                <option>Medio Tiempo</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <textarea
-              formControlName="descripcion"
-              placeholder="Descripcion"
-            ></textarea>
-          </div>
-          <div class="col-lg-12">
-            <ul>
-              <li>
-                <button class="active" type="submit" value="post">Post</button>
-              </li>
-              <li>
-                <a (click)="closeModal('put')" title="">Cancel</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </form>
-    </div>
-    <!--post-project-fields end-->
-    <a (click)="closeModal('put')" title=""
-      ><i class="la la-times-circle-o"></i
-    ></a>
-  </div>
-  <!--post-project end-->
-</div>
 <!--post-project-popup end-->
 
 <div class="post-popup job_post" #post>

@@ -10,7 +10,6 @@ import { JobsService } from 'src/app/services/jobs.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  public getId: string = '';
   public form = this.formBuilder.group({
     titulo: '',
     categoria: '',
@@ -19,19 +18,10 @@ export class HomeComponent implements OnInit {
     tiempo: '',
     descripcion: '',
   });
-  public formUpdate = this.formBuilder.group({
-    titulo: '',
-    categoria: '',
-    habilidades: '',
-    salario: 0,
-    tiempo: '',
-    descripcion: '',
-  });
+
   public company: any = {};
   public localStorageData: any = {};
   @ViewChild('post') postForm!: ElementRef<HTMLInputElement>;
-  @ViewChild('put') putForm!: ElementRef<HTMLInputElement>;
-  @ViewChild('options') options!: ElementRef<HTMLInputElement>;
 
   constructor(
     private _company: CompanyService,
@@ -54,69 +44,20 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  getJob() {
-    this._job.getJob(this.getId).subscribe((data) => {
-      console.log(data.body);
-      this.formUpdate.patchValue({
-        titulo: data.body.titulo,
-        categoria: data.body.categoria,
-        habilidades: data.body.habilidades,
-        salario: data.body.salario,
-        tiempo: data.body.tiempo,
-        descripcion: data.body.descripcion,
-      });
-    });
-  }
-
   postJob() {
     this._job.postJob(this.form.value).subscribe((data) => {
       if (data.body) {
-        this.getCompany();
         this.closeModal('post');
+        this.ngOnInit();
       }
     });
-  }
-
-  putJob(id: string) {
-    this._job.putJob(id, this.formUpdate.value).subscribe((data) => {
-      if (data.body) {
-        this.getCompany();
-        this.closeModal('put');
-      }
-    });
-  }
-
-  deleteJob(id: string) {
-    console.log(id);
-    this._job.deleteJob(id).subscribe((data) => {
-      console.log(data);
-      window.location.reload();
-    });
-  }
-
-  getIdJob(id: string) {
-    this.getId = id;
-    this.getJob();
-  }
-
-  toggleOptions() {
-    if (this.options.nativeElement.classList.contains('active')) {
-      this.options.nativeElement.classList.remove('active');
-    } else {
-      this.options.nativeElement.classList.add('active');
-    }
   }
 
   showModal(method: string) {
-    method === 'post'
-      ? this.postForm.nativeElement.classList.add('active')
-      : this.putForm.nativeElement.classList.add('active');
+    this.postForm.nativeElement.classList.add('active');
   }
 
   closeModal(method: string) {
-    console.log('xd');
-    method === 'post'
-      ? this.postForm.nativeElement.classList.remove('active')
-      : this.putForm.nativeElement.classList.remove('active');
+    this.postForm.nativeElement.classList.remove('active');
   }
 }

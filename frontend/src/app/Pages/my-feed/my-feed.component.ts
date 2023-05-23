@@ -79,31 +79,35 @@ export class MyFeedComponent {
       this._company
         .putCoverImage(this.localStorageData.id, formData)
         .subscribe((data) => {
-          this.getCompany();
+          this.ngOnInit();
         });
     } else {
       this._user
         .putCoverImage(this.localStorageData.id, formData)
         .subscribe((data) => {
-          this.getUser();
+          this.ngOnInit();
         });
     }
   }
 
   submitProfileImage() {
     const formData = new FormData();
-    formData.append('coverImage', this.coverImage!, this.coverImage?.name);
+    formData.append(
+      'profileImage',
+      this.profileImage!,
+      this.profileImage?.name
+    );
     if (this.localStorageData.contratista) {
       this._company
         .putProfileImage(this.localStorageData.id, formData)
         .subscribe((data) => {
-          this.getCompany();
+          this.ngOnInit();
         });
     } else {
       this._user
         .putProfileImage(this.localStorageData.id, formData)
         .subscribe((data) => {
-          this.getUser();
+          this.ngOnInit();
         });
     }
   }

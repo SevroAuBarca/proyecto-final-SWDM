@@ -15,12 +15,12 @@
         <a
           class="post_project"
           title=""
-          (click)="getIdJob(companies.id); showModal('put')"
+          (click)="getIdJob(company.id); showModal('put')"
           >Editar Trabajo</a
         >
       </li>
       <li>
-        <a title="" (click)="deleteJob(companies.id)">Eliminar Trabajo</a>
+        <a title="" (click)="deleteJob(company.id)">Eliminar Trabajo</a>
       </li>
     </ul>
   </div>
@@ -41,21 +41,21 @@
   </ul>
 </div>
 <div class="job_descp">
-  <h3>{{ companies.titulo }}</h3>
+  <h3>{{ company.titulo }}</h3>
   <ul class="job-dt">
     <li>
-      <a href="#" title="">Tiempo: {{ companies.tiempo }}</a>
+      <a href="#" title="">Tiempo: {{ company.tiempo }}</a>
     </li>
     <li>
-      <span>${{ companies.salario }} / mes</span>
+      <span>${{ company.salario }} / mes</span>
     </li>
   </ul>
   <p>
-    {{ companies.descripcion }}
+    {{ company.descripcion }}
   </p>
   <ul class="skill-tags">
     <li>
-      <a href="#" title="">{{ companies.habilidades }}</a>
+      <a href="#" title="">{{ company.habilidades }}</a>
     </li>
   </ul>
 </div>
