@@ -2,7 +2,7 @@
   <div class="usy-dt">
     <img src="http://via.placeholder.com/50x50" alt="" />
     <div class="usy-name">
-      <h3>{{ company["nombre_compañia"] }}</h3>
+      <h3>{{ titulo }}</h3>
       <span><img src="images/clock.png" alt="" />3 min ago</span>
     </div>
   </div>
@@ -10,7 +10,7 @@
     <a title="" class="ed-opts-open" (click)="toggleOptions()"
       ><i class="la la-ellipsis-v"></i
     ></a>
-    <ul class="ed-options" #options>
+    <ul class="ed-options" [ngClass]="{ active: toggle }" #options>
       <li>
         <a
           class="post_project"

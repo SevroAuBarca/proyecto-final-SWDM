@@ -5,8 +5,10 @@ import {
   Input,
   Output,
   ViewChild,
+  OnInit,
+  AfterContentInit,
+  AfterViewInit,
 } from '@angular/core';
-import { CompanyService } from 'src/app/services/company.service';
 import { JobsService } from 'src/app/services/jobs.service';
 import { FormBuilder } from '@angular/forms';
 import * as alertify from 'alertifyjs';
@@ -17,14 +19,19 @@ import Swal from 'sweetalert2';
   templateUrl: './edit-modal.component.html',
   styleUrls: ['./edit-modal.component.css'],
 })
-export class EditModalComponent {
+export class EditModalComponent
+  implements OnInit, AfterContentInit, AfterViewInit
+{
   public getId: string = '';
+  public toggle: boolean = false;
 
+  @Input() titulo: string = '';
   @Input() company: any = {};
   @Output() getCompany = new EventEmitter();
 
-  @ViewChild('put') putForm!: ElementRef<HTMLInputElement>;
-  @ViewChild('options') options!: ElementRef<HTMLInputElement>;
+  @ViewChild('put', { static: false }) putForm!: ElementRef<HTMLInputElement>;
+  @ViewChild('options', { static: false })
+  options!: ElementRef;
 
   public formUpdate = this.formBuilder.group({
     titulo: '',
@@ -35,6 +42,19 @@ export class EditModalComponent {
     descripcion: '',
   });
   constructor(private _job: JobsService, private formBuilder: FormBuilder) {}
+
+  ngOnInit() {}
+
+  ngAfterContentInit(): void {
+    console.log(this.options);
+  }
+
+  ngAfterViewInit() {
+    console.log('afterinit');
+    setTimeout(() => {
+      console.log(this.options);
+    }, 1000);
+  }
 
   getIdJob(id: string) {
     this.getId = id;
@@ -100,10 +120,13 @@ export class EditModalComponent {
   }
 
   toggleOptions() {
-    if (this.options.nativeElement.classList.contains('active')) {
-      this.options.nativeElement.classList.remove('active');
-    } else {
-      this.options.nativeElement.classList.add('active');
-    }
+    // console.log('xd');
+    // if (this.options.nativeElement.classList.contains('active')) {
+    //   this.options.nativeElement.classList.remove('active');
+    // } else {
+    //   this.options.nativeElement.classList.toggle();
+    // }
+
+    this.toggle = !this.toggle;
   }
 }

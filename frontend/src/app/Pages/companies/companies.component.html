@@ -16,7 +16,7 @@
               <div class="company-up-info">
                 <img
                   src="{{
-                    company['imagen_perfil'] ||
+                    company?.imagen_perfil?.url ||
                       'http://via.placeholder.com/91x91'
                   }}"
                   alt=""

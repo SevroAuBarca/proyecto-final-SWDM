@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   });
 
   public company: any = {};
+  public title: string = '';
   public localStorageData: any = {};
   @ViewChild('post') postForm!: ElementRef<HTMLInputElement>;
 
@@ -40,6 +41,7 @@ export class HomeComponent implements OnInit {
     this._company.getCompany(this.localStorageData.id).subscribe((data) => {
       this.company = data.body;
       this.company.trabajos = this.company.trabajos.reverse();
+      this.title = this.company['nombre_compañia'];
       console.log(this.company);
     });
   }
